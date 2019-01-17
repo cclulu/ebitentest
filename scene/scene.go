@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	_ "image/jpeg"
 	"os"
 
 	"github.com/davecgh/go-spew/spew"
@@ -64,17 +65,22 @@ func init() {
 	}
 	defer background.Close()
 
-	img, test, err := image.Decode(background)
+	img, _, err := image.Decode(background)
 	if err != nil {
-		spew.Dump(err)
-		spew.Dump(test)
-
 		panic(err)
 	}
 
-	imageGameBG, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+	imageWindows, err = ebiten.NewImage(ScreenWidth, ScreenHeight, ebiten.FilterDefault)
+	if err != nil {
+		spew.Dump(err)
+	}
 
-	imageGameBG.Fill(color.White)
+	imageGameBG, err = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+	if err != nil {
+		spew.Dump(err)
+	}
+
+	imageWindows.Fill(color.White)
 
 	w, h := imageGameBG.Size()
 	scaleW := ScreenWidth / float64(w)
@@ -83,11 +89,14 @@ func init() {
 	if scale < scaleH {
 		scale = scaleH
 	}
+
+	ebitenutil.DrawRect(imageWindows, float64(20), float64(20), float64(scaleW), float64(scaleH), color.RGBA{0, 0, 0, 0xc0})
+
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(-float64(w)/2, -float64(h)/2)
 	op.GeoM.Scale(scale, scale)
 	op.GeoM.Translate(ScreenWidth/2, ScreenHeight/2)
 	op.ColorM = lightGray
 	op.Filter = ebiten.FilterLinear
-	imageGameBG.DrawImage(imageGameBG, op)
+	imageWindows.DrawImage(imageGameBG, op)
 }
