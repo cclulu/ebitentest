@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	err := ebiten.Run(movement.Update, 320, 240, 2, "hello world!")
+	err := ebiten.Run(movement.Update, 640, 480, 1, "hello world!")
 	if err != nil {
 		panic("error running ebiten")
 	}
