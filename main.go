@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+
 	err := ebiten.Run(scene.Update, 640, 480, 1, "hello world!")
 	if err != nil {
 		panic("error running ebiten")
