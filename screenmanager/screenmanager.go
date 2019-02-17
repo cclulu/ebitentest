@@ -3,7 +3,7 @@ package screenmanager
 import (
 	"fmt"
 
-	"github.com/cclulu/ebitentest/initialize"
+	"github.com/cclulu/ebitentest/sprites"
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
 )
@@ -42,5 +42,5 @@ func DebugScreen(screen *ebiten.Image) {
 }
 
 func DrawBG(screen *ebiten.Image) {
-	screen.DrawImage(initialize.LoadImages(), &ebiten.DrawImageOptions{})
+	screen.DrawImage(sprites.LoadImages(), &ebiten.DrawImageOptions{})
 }
