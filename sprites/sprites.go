@@ -13,6 +13,18 @@ import (
 const (
 	ScreenWidth  = 640
 	ScreenHeight = 480
+	charHeight   = 34
+	charWidth    = 29
+	// 1 pixel between the 1st and 2nd row && 3rd and 4th but only on the first column rows
+	// 2 pixels between the 2nd and 3rd row && 3rd and 4th row for the 2nd & 3rd columns
+
+	// 2 extra pixels at the top that are empty
+	// 1 extra pixels at the right that are empty
+	// 2 pixels on the left are emtpy except on the last row(which has no empty space)
+	// 1 pixel on the bottom row expect the 1st row which has 2 pixels
+
+	// 17 pixels between each sprite on the 1st and 3rd row
+	// 16 pixels between each sprite on the 2st and 4rd row
 )
 
 var (
@@ -22,6 +34,12 @@ var (
 	imageCharacter *ebiten.Image
 	lightGray      ebiten.ColorM
 )
+
+func drawCharacter() {
+	width, height := imageCharacter.Size()
+	spew.Dump("width: ", width)
+	spew.Dump("height: ", height)
+}
 
 func LoadImages() *ebiten.Image {
 	imageWindows.Fill(color.White)
@@ -84,4 +102,6 @@ func init() {
 	if err != nil {
 		spew.Dump(err)
 	}
+
+	drawCharacter()
 }

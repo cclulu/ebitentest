@@ -2,3 +2,4 @@ main
 ebitentest
 .envrc
 .idea/*
+.DS_Store
